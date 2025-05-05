@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Platform,
+  Alert,
+  ActivityIndicator,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
@@ -26,6 +28,7 @@ interface ResumePolishing4Props {
 
 const ResumePolishing4: React.FC<ResumePolishing4Props> = ({ navigation, route }) => {
   const { resumeData } = route.params || {};
+  const [isExporting, setIsExporting] = useState(false);
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -33,6 +36,23 @@ const ResumePolishing4: React.FC<ResumePolishing4Props> = ({ navigation, route }
 
   const handleCompare = () => {
     navigation.navigate('ResumePolishing5', { resumeData });
+  };
+
+  const handleExport = async () => {
+    // 模拟导出过程
+    setIsExporting(true);
+    
+    // 简单延迟模拟导出处理时间
+    setTimeout(() => {
+      setIsExporting(false);
+      Alert.alert(
+        '导出成功', 
+        '简历已成功导出，您可以在"我的简历"中查看',
+        [
+          { text: '确定', style: 'default' }
+        ]
+      );
+    }, 1500);
   };
 
   return (
@@ -48,10 +68,18 @@ const ResumePolishing4: React.FC<ResumePolishing4Props> = ({ navigation, route }
             />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>预览</Text>
-          <TouchableOpacity style={styles.doneButton}>
-            <Text style={styles.doneText}>完成</Text>
+          <TouchableOpacity style={styles.doneButton} onPress={handleExport}>
+            <Text style={styles.doneText}>导出</Text>
           </TouchableOpacity>
         </View>
+
+        {/* 导出加载指示器 */}
+        {isExporting && (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color={COLORS.primary} />
+            <Text style={styles.loadingText}>正在导出...</Text>
+          </View>
+        )}
 
         {/* 简历预览内容 */}
         <ScrollView style={styles.scrollView}>
@@ -121,13 +149,22 @@ const ResumePolishing4: React.FC<ResumePolishing4Props> = ({ navigation, route }
           </View>
         </ScrollView>
         
-        {/* 底部按钮 */}
-        <View style={styles.bottomButton}>
-          <Button
-            title="查看对比"
-            onPress={handleCompare}
-            gradient={true}
-          />
+        {/* 底部按钮区域 */}
+        <View style={styles.bottomActions}>
+          <View style={styles.exportInfoContainer}>
+            <Image 
+              source={require('../../assets/images/icons/warning.png')} 
+              style={styles.infoIcon}
+            />
+            <Text style={styles.exportInfoText}>导出选项: PDF, 图片</Text>
+          </View>
+          <View style={styles.bottomButton}>
+            <Button
+              title="查看对比"
+              onPress={handleCompare}
+              gradient={true}
+            />
+          </View>
         </View>
       </SafeAreaView>
     </View>
@@ -280,11 +317,30 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
     marginBottom: 2,
   },
-  bottomButton: {
-    padding: 16,
+  bottomActions: {
     backgroundColor: COLORS.white,
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
+  },
+  exportInfoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingTop: 8,
+  },
+  infoIcon: {
+    width: 16,
+    height: 16,
+    tintColor: COLORS.textTertiary,
+    marginRight: 8,
+  },
+  exportInfoText: {
+    fontSize: 12,
+    color: COLORS.textTertiary,
+  },
+  bottomButton: {
+    padding: 16,
+    paddingTop: 8,
   },
   card: {
     backgroundColor: COLORS.white,
@@ -296,6 +352,22 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
+  },
+  loadingContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    zIndex: 999,
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: COLORS.textPrimary,
   },
 });
 

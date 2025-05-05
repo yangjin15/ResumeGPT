@@ -56,8 +56,8 @@ const ReviewOverall: React.FC<ReviewOverallProps> = ({ navigation, route }) => {
           {/* 个人信息卡片 */}
           <View style={styles.infoCardContainer}>
             <LinearGradient
-              colors={['#FF8EC1', '#FFB9C4', '#FFCEB5']}
-              locations={[0, 0.65, 1]}
+              colors={['#F5B0BA', '#FFDDE1']}
+              locations={[0, 1]}
               style={styles.infoCard}
             >
               <View style={styles.userInfoHeader}>
@@ -71,12 +71,13 @@ const ReviewOverall: React.FC<ReviewOverallProps> = ({ navigation, route }) => {
             </LinearGradient>
           </View>
           
-          {/* 能力板块 - 每行两个 */}
+          {/* 能力板块 - 按图二重新排列 */}
           <View style={styles.skillCardsContainer}>
+            {/* 技能和经验 + 沟通能力 */}
             <View style={styles.skillCardRow}>
               <View style={styles.skillCard}>
                 <LinearGradient
-                  colors={['#FFFFFF', '#FFC0BE']}
+                  colors={['#FFD6DE', '#FFF0F2']}
                   locations={[0, 1]}
                   style={styles.skillCardGradient}
                 >
@@ -87,9 +88,9 @@ const ReviewOverall: React.FC<ReviewOverallProps> = ({ navigation, route }) => {
                 </LinearGradient>
               </View>
               
-              <View style={styles.skillCard}>
+              <View style={[styles.skillCard, styles.skillCardRight]}>
                 <LinearGradient
-                  colors={['#FFFFFF', '#FFC0BE']}
+                  colors={['#FFD6DE', '#FFF0F2']}
                   locations={[0, 1]}
                   style={styles.skillCardGradient}
                 >
@@ -101,10 +102,11 @@ const ReviewOverall: React.FC<ReviewOverallProps> = ({ navigation, route }) => {
               </View>
             </View>
             
-            <View style={styles.skillCardRow}>
+            {/* 职业素养 + 适应性和灵活性 */}
+            <View style={styles.skillCardRowSecond}>
               <View style={styles.skillCard}>
                 <LinearGradient
-                  colors={['#FFFFFF', '#FFC0BE']}
+                  colors={['#FFD6DE', '#FFF0F2']}
                   locations={[0, 1]}
                   style={styles.skillCardGradient}
                 >
@@ -115,9 +117,9 @@ const ReviewOverall: React.FC<ReviewOverallProps> = ({ navigation, route }) => {
                 </LinearGradient>
               </View>
               
-              <View style={styles.skillCard}>
+              <View style={[styles.skillCard, styles.skillCardRight]}>
                 <LinearGradient
-                  colors={['#FFFFFF', '#FFC0BE']}
+                  colors={['#FFD6DE', '#FFF0F2']}
                   locations={[0, 1]}
                   style={styles.skillCardGradient}
                 >
@@ -135,7 +137,7 @@ const ReviewOverall: React.FC<ReviewOverallProps> = ({ navigation, route }) => {
   );
 };
 
-const { height } = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -223,6 +225,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 16,
   },
+  skillCardRowSecond: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    // marginTop: 1,
+  },
   skillCard: {
     width: '48%',
     borderRadius: 30,
@@ -232,8 +239,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 8,
     elevation: 5,
-    height: height, // 使用屏幕高度的百分比
-    maxHeight: 170,
+    height: 220, // 增加卡片高度
+  },
+  skillCardRight: {
+    marginTop: 20, // 右侧卡片向下偏移
   },
   skillCardGradient: {
     padding: 16,

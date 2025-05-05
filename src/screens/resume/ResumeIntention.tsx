@@ -29,10 +29,10 @@ interface ResumeIntentionProps {
 const ResumeIntention: React.FC<ResumeIntentionProps> = ({ navigation, route }) => {
   const { resumeData } = route.params;
   
-  const [targetCompany, setTargetCompany] = useState('字节跳动');
-  const [targetPosition, setTargetPosition] = useState('前端工程师');
+  const [targetCompany, setTargetCompany] = useState('');
+  const [targetPosition, setTargetPosition] = useState('');
   const [positionRequirements, setPositionRequirements] = useState(
-    '1.熟练掌握 HTML5、CSS3、JavaScript (ES6+)，了解Web新特性如Web Animations API、Web Storage API。\n2.熟悉前端构建工具（Webpack、Vite）、版本控制（Git）、包管理（NPM/Yarn）。\n3.框架与库\n至少掌握一种主流框架：React（高频要求）、Vue.js（部分业务线如电商部门偏好）, 了解其设计原理和生态工具（如Redux、Vuex）。\n熟悉 TypeScript 开发，能编写类型安全的代码。'
+    
   );
 
   const handleGoBack = () => {

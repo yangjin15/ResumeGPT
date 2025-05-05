@@ -61,7 +61,7 @@ const ReviewSuggestions: React.FC<ReviewSuggestionsProps> = ({ navigation, route
         </View>
 
         {/* 下拉选择器 */}
-        <View style={styles.dropdownContainer}>
+        {/* <View style={styles.dropdownContainer}>
           <TouchableOpacity style={styles.dropdown} onPress={toggleDropdown}>
             <Text style={styles.dropdownText}>{selectedCategory}</Text>
             <Image 
@@ -96,7 +96,7 @@ const ReviewSuggestions: React.FC<ReviewSuggestionsProps> = ({ navigation, route
               ))}
             </View>
           )}
-        </View>
+        </View> */}
 
         <ScrollView style={styles.scrollView}>
           {selectedCategory === '编码能力' && (
@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   contentSection: {
-    paddingTop: 0,
+    paddingTop: 20,
   },
   suggestionItem: {
     marginBottom: 16,
